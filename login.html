@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>লগইন — Goynar Gontobbo</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+Bengali:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --gold: #c8973a;
+            --gold-light: #e8c97a;
+            --gold-pale: #f5e6c8;
+            --deep: #1a0e05;
+            --warm-dark: #2c1a08;
+            --ink: #3d2a10;
+            --cream: #faf4e8;
+            --blush: #f0e0c4;
+            --ruby: #8b1a1a;
+            --emerald: #1a4a2e;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--deep) 0%, var(--warm-dark) 100%);
+            color: var(--cream);
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* ── GRAIN OVERLAY ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .login-container {
+            background: rgba(42, 28, 12, 0.8);
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: 14px;
+            color: var(--gold-light);
+            letter-spacing: 2px;
+        }
+
+        /* ── LOGIN TYPE SELECTOR ── */
+        .login-type-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            background: rgba(61, 42, 16, 0.5);
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .login-type-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1.5px solid transparent;
+            background: transparent;
+            color: var(--gold-light);
+            border-radius: 4px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .login-type-btn.active {
+            border-color: var(--gold);
+            background: rgba(200, 151, 58, 0.15);
+            color: var(--gold);
+        }
+
+        .login-type-btn:hover {
+            color: var(--gold);
+        }
+
+        /* ── FORM SECTIONS ── */
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--cream);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            font-family: 'Noto Serif Bengali', serif;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid var(--gold);
+            background: rgba(245, 230, 200, 0.05);
+            color: var(--cream);
+            border-radius: 4px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="text"]:focus,
+        input[type="tel"]:focus {
+            outline: none;
+            border-color: var(--gold-light);
+            background: rgba(245, 230, 200, 0.1);
+            box-shadow: 0 0 12px rgba(200, 151, 58, 0.3);
+        }
+
+        input::placeholder {
+            color: var(--gold-light);
+            opacity: 0.6;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            font-size: 13px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        input[type="checkbox"] {
+            accent-color: var(--gold);
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: var(--gold-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: var(--gold);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--gold);
+            color: var(--deep);
+            border: none;
+            border-radius: 4px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+        }
+
+        .login-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(200, 151, 58, 0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .signup-section {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid var(--gold-pale);
+        }
+
+        .signup-text {
+            font-size: 14px;
+            color: var(--cream);
+            margin-bottom: 12px;
+        }
+
+        .signup-link {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .signup-link:hover {
+            color: var(--gold-light);
+        }
+
+        .error-message {
+            color: var(--ruby);
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .tagline {
+                font-size: 12px;
+            }
+
+            .login-type-selector {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo">Goynar Gontobbo</div>
+            <div class="tagline">গয়নার গন্তব্য</div>
+        </div>
+
+        <!-- LOGIN TYPE SELECTOR -->
+        <div class="login-type-selector">
+            <button type="button" class="login-type-btn active" data-type="customer">গ্রাহক</button>
+            <button type="button" class="login-type-btn" data-type="admin">প্রশাসক</button>
+        </div>
+
+        <!-- CUSTOMER LOGIN -->
+        <form id="customerForm" class="form-section active">
+            <div class="form-group">
+                <label for="customer-email">ইমেল</label>
+                <input type="email" id="customer-email" name="email" placeholder="আপনার ইমেল..." required />
+                <div class="error-message" id="customer-email-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="customer-password">পাসওয়ার্ড</label>
+                <input type="password" id="customer-password" name="password" placeholder="আপনার পাসওয়ার্ড..."
+                    required />
+            </div>
+
+            <div class="remember-forgot">
+                <label class="remember-me">
+                    <input type="checkbox" name="remember" />
+                    <span>আমাকে মনে রাখুন</span>
+                </label>
+                <a href="#" class="forgot-password">পাসওয়ার্ড ভুলে গেছেন?</a>
+            </div>
+
+            <button type="submit" class="login-btn">লগইন করুন</button>
+        </form>
+
+        <!-- ADMIN LOGIN -->
+        <form id="adminForm" class="form-section">
+            <div class="form-group">
+                <label for="admin-email">প্রশাসক ইমেল</label>
+                <input type="email" id="admin-email" name="email" placeholder="প্রশাসক ইমেল..." required />
+                <div class="error-message" id="admin-email-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="admin-password">প্রশাসক পাসওয়ার্ড</label>
+                <input type="password" id="admin-password" name="password" placeholder="প্রশাসক পাসওয়ার্ড..."
+                    required />
+            </div>
+
+            <div class="remember-forgot">
+                <label class="remember-me">
+                    <input type="checkbox" name="remember" />
+                    <span>আমাকে মনে রাখুন</span>
+                </label>
+            </div>
+
+            <button type="submit" class="login-btn">প্রবেশ করুন</button>
+        </form>
+
+        <!-- SIGNUP SECTION -->
+        <div class="signup-section">
+            <div class="signup-text">এখনও কোনো অ্যাকাউন্ট নেই?</div>
+            <a href="signup.html" class="signup-link">এখানে সাইন আপ করুন</a>
+        </div>
+    </div>
+
+    <script>
+        // Login type selector
+        const loginTypeBtns = document.querySelectorAll('.login-type-btn');
+        const customerForm = document.getElementById('customerForm');
+        const adminForm = document.getElementById('adminForm');
+
+        loginTypeBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                loginTypeBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const type = this.getAttribute('data-type');
+                if (type === 'customer') {
+                    customerForm.classList.add('active');
+                    adminForm.classList.remove('active');
+                } else {
+                    adminForm.classList.add('active');
+                    customerForm.classList.remove('active');
+                }
+            });
+        });
+
+        // Customer Login Handler
+        document.getElementById('customerForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = document.getElementById('customer-email').value;
+            const password = document.getElementById('customer-password').value;
+
+            // Validate customer
+            const result = validateCustomerLogin(email, password);
+            if (result.valid) {
+                if (!result.approved) {
+                    document.getElementById('customer-email-error').textContent = 'আপনার অ্যাকাউন্ট এখনও প্রশাসক দ্বারা অনুমোদিত হয়নি। অনুগ্রহ করে অপেক্ষা করুন।';
+                    document.getElementById('customer-email-error').classList.add('show');
+                    return;
+                }
+                localStorage.setItem('currentUser', JSON.stringify({
+                    type: 'customer',
+                    email: email,
+                    loginTime: new Date().toISOString()
+                }));
+                window.location.href = 'index.html';
+            } else {
+                document.getElementById('customer-email-error').textContent = 'ইমেল বা পাসওয়ার্ড ভুল';
+                document.getElementById('customer-email-error').classList.add('show');
+            }
+        });
+
+        // Admin Login Handler
+        document.getElementById('adminForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-password').value;
+
+            // Simple admin validation (replace with actual backend validation)
+            if (email === 'admin@goynar.com' && password === 'admin123') {
+                localStorage.setItem('currentUser', JSON.stringify({
+                    type: 'admin',
+                    email: email,
+                    loginTime: new Date().toISOString()
+                }));
+                window.location.href = 'admin-dashboard-new.html';
+            } else {
+                document.getElementById('admin-email-error').textContent = 'প্রশাসক শংসাপত্র অবৈধ';
+                document.getElementById('admin-email-error').classList.add('show');
+            }
+        });
+
+        function validateCustomerLogin(email, password) {
+            // Get stored customers from localStorage
+            const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+            const customer = customers.find(c => c.email === email && c.password === password);
+
+            if (!customer) {
+                return { valid: false, approved: false };
+            }
+
+            return { valid: true, approved: customer.approved || false };
+        }
+    </script>
+</body>
+
+</html>

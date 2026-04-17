@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>অর্ডার তালিকা — Goynar Gontobbo</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+Bengali:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --gold: #c8973a;
+            --gold-light: #e8c97a;
+            --gold-pale: #f5e6c8;
+            --deep: #1a0e05;
+            --warm-dark: #2c1a08;
+            --ink: #3d2a10;
+            --cream: #faf4e8;
+            --blush: #f0e0c4;
+            --ruby: #8b1a1a;
+            --emerald: #1a4a2e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--deep);
+            color: var(--cream);
+            font-family: 'Cormorant Garamond', serif;
+            min-height: 100vh;
+        }
+
+        /* ── HEADER ── */
+        header {
+            background: linear-gradient(to bottom, rgba(26, 14, 5, 0.98), transparent);
+            border-bottom: 1px solid rgba(200, 151, 58, 0.15);
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .header-logo span {
+            display: block;
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: 0.75rem;
+            color: var(--gold-light);
+        }
+
+        .back-btn {
+            background: var(--gold);
+            color: var(--deep);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--gold-light);
+        }
+
+        /* ── CONTAINER ── */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        /* ── SEARCH AND FILTER ── */
+        .search-filter {
+            background: rgba(42, 28, 12, 0.6);
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .search-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search-group label {
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: 13px;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .search-group input,
+        .search-group select {
+            padding: 10px 12px;
+            border: 1.5px solid var(--gold);
+            background: rgba(245, 230, 200, 0.05);
+            color: var(--cream);
+            border-radius: 4px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+        }
+
+        .search-group input:focus,
+        .search-group select:focus {
+            outline: none;
+            border-color: var(--gold-light);
+            background: rgba(245, 230, 200, 0.1);
+        }
+
+        .search-group select option {
+            background: var(--deep);
+            color: var(--cream);
+        }
+
+        /* ── BOOKING LIST ── */
+        .bookings-section {
+            background: rgba(42, 28, 12, 0.6);
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            padding: 30px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--gold-pale);
+            padding-bottom: 10px;
+        }
+
+        .bookings-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .bookings-table thead {
+            background: rgba(200, 151, 58, 0.1);
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .bookings-table th {
+            padding: 15px;
+            text-align: left;
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: 13px;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .bookings-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--gold-pale);
+            color: var(--cream);
+        }
+
+        .bookings-table tbody tr:hover {
+            background: rgba(200, 151, 58, 0.05);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .status-pending {
+            background: rgba(200, 151, 58, 0.3);
+            color: var(--gold);
+        }
+
+        .status-processing {
+            background: rgba(26, 74, 46, 0.3);
+            color: var(--emerald);
+        }
+
+        .status-delivered {
+            background: rgba(26, 74, 46, 0.3);
+            color: var(--emerald);
+        }
+
+        .status-cancelled {
+            background: rgba(139, 26, 26, 0.3);
+            color: var(--ruby);
+        }
+
+        .action-btn {
+            background: var(--emerald);
+            color: var(--cream);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: #1a6a4a;
+        }
+
+        .delete-btn {
+            background: var(--ruby);
+            color: var(--cream);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background: #a01a1a;
+        }
+
+        .no-bookings {
+            text-align: center;
+            padding: 40px;
+            color: var(--gold-light);
+            font-style: italic;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            background: var(--gold);
+            color: var(--deep);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Cormorant Garamond', serif;
+            transition: all 0.3s ease;
+        }
+
+        .pagination button:hover {
+            background: var(--gold-light);
+        }
+
+        .pagination button.active {
+            background: var(--gold-light);
+            font-weight: bold;
+        }
+
+        .pagination button:disabled {
+            background: rgba(200, 151, 58, 0.3);
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .search-filter {
+                grid-template-columns: 1fr;
+            }
+
+            .bookings-table {
+                font-size: 12px;
+            }
+
+            .bookings-table th,
+            .bookings-table td {
+                padding: 10px;
+            }
+
+            .action-btn,
+            .delete-btn {
+                padding: 6px 10px;
+                font-size: 10px;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+        <a href="index.html" class="header-logo">
+            Goynar Gontobbo
+            <span>গয়নার গন্তব্য</span>
+        </a>
+        <button class="back-btn" onclick="history.back()">ফিরে যান</button>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <h1 class="page-title">অর্ডার তালিকা</h1>
+
+        <!-- SEARCH AND FILTER -->
+        <div class="search-filter">
+            <div class="search-group">
+                <label for="searchInput">গ্রাহক নাম খুঁজুন</label>
+                <input type="text" id="searchInput" placeholder="নাম লিখুন..." onkeyup="filterBookings()">
+            </div>
+            <div class="search-group">
+                <label for="statusFilter">স্থিতি ফিল্টার করুন</label>
+                <select id="statusFilter" onchange="filterBookings()">
+                    <option value="">সকল স্থিতি</option>
+                    <option value="pending">অপেক্ষারত</option>
+                    <option value="processing">প্রক্রিয়াকরণ</option>
+                    <option value="delivered">ডেলিভারি হয়েছে</option>
+                    <option value="cancelled">বাতিল করা</option>
+                </select>
+            </div>
+            <div class="search-group">
+                <label for="dateFilter">তারিখ দ্বারা সাজান</label>
+                <select id="dateFilter" onchange="filterBookings()">
+                    <option value="latest">সর্বশেষ প্রথম</option>
+                    <option value="oldest">সবচেয়ে পুরানো প্রথম</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- BOOKINGS TABLE -->
+        <div class="bookings-section">
+            <h2 class="section-title">সকল অর্ডার</h2>
+
+            <table class="bookings-table">
+                <thead>
+                    <tr>
+                        <th>অর্ডার আইডি</th>
+                        <th>গ্রাহক</th>
+                        <th>পণ্য</th>
+                        <th>তারিখ</th>
+                        <th>মূল্য</th>
+                        <th>ফোন</th>
+                        <th>স্থিতি</th>
+                        <th>ক্রিয়া</th>
+                    </tr>
+                </thead>
+                <tbody id="bookingsBody">
+                    <tr class="no-bookings">
+                        <td colspan="8">কোনো অর্ডার নেই</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="pagination" id="pagination"></div>
+        </div>
+    </div>
+
+    <script>
+        let allBookings = [];
+        let filteredBookings = [];
+        const itemsPerPage = 10;
+        let currentPage = 1;
+
+        // Initialize
+        function initBookingList() {
+            loadBookings();
+            displayBookings();
+        }
+
+        function loadBookings() {
+            const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+            allBookings = [];
+
+            customers.forEach((customer, customerIndex) => {
+                const purchases = customer.purchases || [];
+                purchases.forEach((purchase, purchaseIndex) => {
+                    allBookings.push({
+                        id: `#${customerIndex + 1}-${purchaseIndex + 1}`,
+                        customerName: customer.name,
+                        customerPhone: customer.phone,
+                        customerLocation: customer.location,
+                        product: purchase.product || 'পণ্য',
+                        date: purchase.date,
+                        price: purchase.price || 0,
+                        status: purchase.status || 'pending',
+                        notes: purchase.notes || ''
+                    });
+                });
+            });
+
+            filteredBookings = [...allBookings];
+        }
+
+        function filterBookings() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value;
+            const dateFilter = document.getElementById('dateFilter').value;
+
+            filteredBookings = allBookings.filter(booking => {
+                const matchesSearch = booking.customerName.toLowerCase().includes(searchTerm);
+                const matchesStatus = !statusFilter || booking.status === statusFilter;
+                return matchesSearch && matchesStatus;
+            });
+
+            if (dateFilter === 'oldest') {
+                filteredBookings.sort((a, b) => new Date(a.date) - new Date(b.date));
+            } else {
+                filteredBookings.sort((a, b) => new Date(b.date) - new Date(a.date));
+            }
+
+            currentPage = 1;
+            displayBookings();
+        }
+
+        function displayBookings() {
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageBookings = filteredBookings.slice(start, end);
+
+            const bookingsBody = document.getElementById('bookingsBody');
+
+            if (pageBookings.length === 0) {
+                bookingsBody.innerHTML = '<tr class="no-bookings"><td colspan="8">কোনো অর্ডার নেই</td></tr>';
+                document.getElementById('pagination').innerHTML = '';
+                return;
+            }
+
+            bookingsBody.innerHTML = pageBookings.map(booking => `
+                <tr>
+                    <td>${booking.id}</td>
+                    <td>
+                        <strong>${booking.customerName}</strong><br>
+                        <small style="color: var(--gold-light);">${booking.customerLocation}</small>
+                    </td>
+                    <td>${booking.product}</td>
+                    <td>${new Date(booking.date).toLocaleDateString('bn-BD')}</td>
+                    <td>৳${booking.price.toLocaleString('bn-BD')}</td>
+                    <td>${booking.customerPhone}</td>
+                    <td>
+                        <span class="status-badge status-${booking.status}">
+                            ${getStatusLabel(booking.status)}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="action-btn" onclick="viewOrder('${booking.id}')">বিস্তারিত</button>
+                        <button class="delete-btn" onclick="deleteOrder('${booking.id}')">মুছুন</button>
+                    </td>
+                </tr>
+            `).join('');
+
+            displayPagination();
+        }
+
+        function displayPagination() {
+            const totalPages = Math.ceil(filteredBookings.length / itemsPerPage);
+            const pagination = document.getElementById('pagination');
+
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let paginationHTML = '';
+            for (let i = 1; i <= totalPages; i++) {
+                const activeClass = i === currentPage ? 'active' : '';
+                paginationHTML += `<button class="${activeClass}" onclick="goToPage(${i})">${i}</button>`;
+            }
+
+            pagination.innerHTML = paginationHTML;
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            displayBookings();
+        }
+
+        function getStatusLabel(status) {
+            const labels = {
+                'pending': 'অপেক্ষারত',
+                'processing': 'প্রক্রিয়াকরণ',
+                'delivered': 'ডেলিভারি হয়েছে',
+                'cancelled': 'বাতিল করা'
+            };
+            return labels[status] || status;
+        }
+
+        function viewOrder(orderId) {
+            const order = allBookings.find(o => o.id === orderId);
+            if (order) {
+                alert(`
+অর্ডার বিস্তারিত:
+আইডি: ${order.id}
+গ্রাহক: ${order.customerName}
+ফোন: ${order.customerPhone}
+অবস্থান: ${order.customerLocation}
+পণ্য: ${order.product}
+মূল্য: ৳${order.price}
+তারিখ: ${new Date(order.date).toLocaleDateString('bn-BD')}
+স্থিতি: ${getStatusLabel(order.status)}
+                `);
+            }
+        }
+
+        function deleteOrder(orderId) {
+            if (confirm('এই অর্ডারটি মুছতে চান?')) {
+                allBookings = allBookings.filter(o => o.id !== orderId);
+                filteredBookings = filteredBookings.filter(o => o.id !== orderId);
+                displayBookings();
+            }
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', initBookingList);
+    </script>
+</body>
+
+</html>

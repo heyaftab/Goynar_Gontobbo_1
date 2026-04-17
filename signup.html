@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>সাইন আপ — Goynar Gontobbo</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+Bengali:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --gold: #c8973a;
+            --gold-light: #e8c97a;
+            --gold-pale: #f5e6c8;
+            --deep: #1a0e05;
+            --warm-dark: #2c1a08;
+            --ink: #3d2a10;
+            --cream: #faf4e8;
+            --blush: #f0e0c4;
+            --ruby: #8b1a1a;
+            --emerald: #1a4a2e;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--deep) 0%, var(--warm-dark) 100%);
+            color: var(--cream);
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* ── GRAIN OVERLAY ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .signup-container {
+            background: rgba(42, 28, 12, 0.8);
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 550px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: 14px;
+            color: var(--gold-light);
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: var(--cream);
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--cream);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            font-family: 'Noto Serif Bengali', serif;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid var(--gold);
+            background: rgba(245, 230, 200, 0.05);
+            color: var(--cream);
+            border-radius: 4px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="tel"]:focus {
+            outline: none;
+            border-color: var(--gold-light);
+            background: rgba(245, 230, 200, 0.1);
+            box-shadow: 0 0 12px rgba(200, 151, 58, 0.3);
+        }
+
+        input::placeholder {
+            color: var(--gold-light);
+            opacity: 0.6;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-grid .form-group {
+            margin-bottom: 0;
+        }
+
+        .signup-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--gold);
+            color: var(--deep);
+            border: none;
+            border-radius: 4px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .signup-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(200, 151, 58, 0.3);
+        }
+
+        .signup-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-section {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid var(--gold-pale);
+        }
+
+        .login-text {
+            font-size: 14px;
+            color: var(--cream);
+            margin-bottom: 12px;
+        }
+
+        .login-link {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .login-link:hover {
+            color: var(--gold-light);
+        }
+
+        .error-message {
+            color: var(--ruby);
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success-message {
+            color: var(--emerald);
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .signup-container {
+                padding: 30px 20px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="signup-container">
+        <div class="signup-header">
+            <div class="logo">Goynar Gontobbo</div>
+            <div class="tagline">গয়নার গন্তব্য</div>
+            <div class="subtitle">নতুন অ্যাকাউন্ট তৈরি করুন</div>
+        </div>
+
+        <form id="signupForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="firstName">প্রথম নাম</label>
+                    <input type="text" id="firstName" name="firstName" placeholder="প্রথম নাম..." required />
+                    <div class="error-message" id="firstName-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">শেষ নাম</label>
+                    <input type="text" id="lastName" name="lastName" placeholder="শেষ নাম..." required />
+                    <div class="error-message" id="lastName-error"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">ইমেল</label>
+                <input type="email" id="email" name="email" placeholder="আপনার ইমেল..." required />
+                <div class="error-message" id="email-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">ফোন নম্বর</label>
+                <input type="tel" id="phone" name="phone" placeholder="আপনার ফোন নম্বর..." required />
+                <div class="error-message" id="phone-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="location">অবস্থান</label>
+                <input type="text" id="location" name="location" placeholder="আপনার ঠিকানা..." required />
+                <div class="error-message" id="location-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">পাসওয়ার্ড</label>
+                <input type="password" id="password" name="password" placeholder="কমপক্ষে ৬ অক্ষর..." required />
+                <div class="error-message" id="password-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">পাসওয়ার্ড নিশ্চিত করুন</label>
+                <input type="password" id="confirmPassword" name="confirmPassword"
+                    placeholder="পাসওয়ার্ড পুনরায় লিখুন..." required />
+                <div class="error-message" id="confirmPassword-error"></div>
+            </div>
+
+            <div class="error-message" id="general-error"></div>
+            <div class="success-message" id="success-message">অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে। লগইন পৃষ্ঠায় নির্দেশিত
+                হচ্ছে...</div>
+
+            <button type="submit" class="signup-btn">অ্যাকাউন্ট তৈরি করুন</button>
+        </form>
+
+        <div class="login-section">
+            <div class="login-text">ইতিমধ্যে অ্যাকাউন্ট আছে?</div>
+            <a href="login.html" class="login-link">এখানে লগইন করুন</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const location = document.getElementById('location').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Clear previous errors
+            document.querySelectorAll('.error-message').forEach(el => el.classList.remove('show'));
+            document.getElementById('general-error').classList.remove('show');
+
+            // Validation
+            let hasError = false;
+
+            if (!firstName) {
+                document.getElementById('firstName-error').textContent = 'প্রথম নাম প্রয়োজন';
+                document.getElementById('firstName-error').classList.add('show');
+                hasError = true;
+            }
+
+            if (!lastName) {
+                document.getElementById('lastName-error').textContent = 'শেষ নাম প্রয়োজন';
+                document.getElementById('lastName-error').classList.add('show');
+                hasError = true;
+            }
+
+            if (!email || !email.includes('@')) {
+                document.getElementById('email-error').textContent = 'বৈধ ইমেল প্রয়োজন';
+                document.getElementById('email-error').classList.add('show');
+                hasError = true;
+            }
+
+            if (!phone) {
+                document.getElementById('phone-error').textContent = 'ফোন নম্বর প্রয়োজন';
+                document.getElementById('phone-error').classList.add('show');
+                hasError = true;
+            }
+
+            if (!location) {
+                document.getElementById('location-error').textContent = 'অবস্থান প্রয়োজন';
+                document.getElementById('location-error').classList.add('show');
+                hasError = true;
+            }
+
+            if (password.length < 6) {
+                document.getElementById('password-error').textContent = 'পাসওয়ার্ড কমপক্ষে ৬ অক্ষর দীর্ঘ হতে হবে';
+                document.getElementById('password-error').classList.add('show');
+                hasError = true;
+            }
+
+            if (password !== confirmPassword) {
+                document.getElementById('confirmPassword-error').textContent = 'পাসওয়ার্ড মিলছে না';
+                document.getElementById('confirmPassword-error').classList.add('show');
+                hasError = true;
+            }
+
+            // Check if email already exists
+            const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+            if (customers.some(c => c.email === email)) {
+                document.getElementById('email-error').textContent = 'এই ইমেল ইতিমধ্যে নিবন্ধিত';
+                document.getElementById('email-error').classList.add('show');
+                hasError = true;
+            }
+
+            if (hasError) return;
+
+            // Add new customer (pending admin approval)
+            const newCustomer = {
+                name: `${firstName} ${lastName}`,
+                email: email,
+                password: password,
+                phone: phone,
+                location: location,
+                purchases: [],
+                approved: false,
+                joinDate: new Date().toISOString()
+            };
+
+            customers.push(newCustomer);
+            localStorage.setItem('customers', JSON.stringify(customers));
+
+            // Show success message
+            document.getElementById('success-message').innerHTML = '✓ অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে। অনুগ্রহ করে প্রশাসকের অনুমোদনের জন্য অপেক্ষা করুন।';
+            document.getElementById('success-message').classList.add('show');
+
+            // Redirect after 3 seconds
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 3000);
+        });
+    </script>
+</body>
+
+</html>

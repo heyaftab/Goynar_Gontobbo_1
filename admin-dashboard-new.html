@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>প্রশাসক ড্যাশবোর্ড — Goynar Gontobbo</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+Bengali:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --gold: #c8973a;
+            --gold-light: #e8c97a;
+            --gold-pale: #f5e6c8;
+            --deep: #1a0e05;
+            --warm-dark: #2c1a08;
+            --ink: #3d2a10;
+            --cream: #faf4e8;
+            --blush: #f0e0c4;
+            --ruby: #8b1a1a;
+            --emerald: #1a4a2e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--deep);
+            color: var(--cream);
+            font-family: 'Cormorant Garamond', serif;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(to bottom, rgba(26, 14, 5, 0.98), transparent);
+            border-bottom: 1px solid rgba(200, 151, 58, 0.15);
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .header-logo span {
+            display: block;
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: 0.75rem;
+            color: var(--gold-light);
+        }
+
+        .logout-btn {
+            background: var(--ruby);
+            color: var(--cream);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #a01a1a;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .dashboard-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* ── TABS ── */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 15px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--gold-light);
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+
+        .tab-btn:hover {
+            color: var(--gold);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ── SECTION ── */
+        .section {
+            background: rgba(42, 28, 12, 0.6);
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--gold-pale);
+            padding-bottom: 10px;
+        }
+
+        /* ── APPROVAL TABLE ── */
+        .approval-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .approval-table thead {
+            background: rgba(200, 151, 58, 0.1);
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .approval-table th {
+            padding: 15px;
+            text-align: left;
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: 13px;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .approval-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--gold-pale);
+            color: var(--cream);
+        }
+
+        .approval-table tbody tr:hover {
+            background: rgba(200, 151, 58, 0.05);
+        }
+
+        .btn-approve {
+            background: var(--emerald);
+            color: var(--cream);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-approve:hover {
+            background: #1a6a4a;
+        }
+
+        .btn-reject {
+            background: var(--ruby);
+            color: var(--cream);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-reject:hover {
+            background: #a01a1a;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: var(--gold-light);
+            font-style: italic;
+        }
+
+        /* ── PRODUCT FORM ── */
+        .product-form {
+            background: rgba(61, 42, 16, 0.5);
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: 13px;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1.5px solid var(--gold);
+            background: rgba(245, 230, 200, 0.05);
+            color: var(--cream);
+            border-radius: 4px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--gold-light);
+            background: rgba(245, 230, 200, 0.1);
+        }
+
+        .submit-btn {
+            background: var(--gold);
+            color: var(--deep);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--gold-light);
+        }
+
+        /* ── PRODUCTS TABLE ── */
+        .products-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .products-table thead {
+            background: rgba(200, 151, 58, 0.1);
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .products-table th {
+            padding: 15px;
+            text-align: left;
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: 13px;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .products-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--gold-pale);
+            color: var(--cream);
+        }
+
+        .products-table tbody tr:hover {
+            background: rgba(200, 151, 58, 0.05);
+        }
+
+        .btn-delete {
+            background: var(--ruby);
+            color: var(--cream);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-delete:hover {
+            background: #a01a1a;
+        }
+
+        .btn-edit {
+            background: var(--gold);
+            color: var(--deep);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit:hover {
+            background: var(--gold-light);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 1rem;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .approval-table,
+            .products-table {
+                font-size: 12px;
+            }
+
+            .approval-table th,
+            .approval-table td,
+            .products-table th,
+            .products-table td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="header-logo">
+            Goynar Gontobbo
+            <span>গয়নার গন্তব্য</span>
+        </a>
+        <button class="logout-btn" onclick="logout()">লগআউট</button>
+    </header>
+
+    <div class="container">
+        <h1 class="dashboard-title">প্রশাসক ড্যাশবোর্ড</h1>
+
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('approvals')">গ্রাহক অনুমোদন</button>
+            <button class="tab-btn" onclick="switchTab('products')">পণ্য ব্যবস্থাপনা</button>
+            <button class="tab-btn" onclick="switchTab('orders')">অর্ডার</button>
+        </div>
+
+        <!-- APPROVALS TAB -->
+        <div id="approvals" class="tab-content active">
+            <div class="section">
+                <h2 class="section-title">অপেক্ষারত অনুমোদন অনুরোধ</h2>
+                <table class="approval-table">
+                    <thead>
+                        <tr>
+                            <th>নাম</th>
+                            <th>ইমেল</th>
+                            <th>ফোন</th>
+                            <th>অবস্থান</th>
+                            <th>তারিখ</th>
+                            <th>ক্রিয়া</th>
+                        </tr>
+                    </thead>
+                    <tbody id="approvalsBody">
+                        <tr class="no-data">
+                            <td colspan="6">কোনো অনুমোদন অনুরোধ নেই</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- PRODUCTS TAB -->
+        <div id="products" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">নতুন পণ্য যোগ করুন</h2>
+                <form class="product-form" id="productForm" onsubmit="addProduct(event)">
+                    <div class="form-group">
+                        <label for="productName">পণ্য নাম</label>
+                        <input type="text" id="productName" required placeholder="পণ্যের নাম..." />
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrice">মূল্য (৳)</label>
+                        <input type="number" id="productPrice" required placeholder="মূল্য..." />
+                    </div>
+                    <div class="form-group">
+                        <label for="productDescription">বিবরণ</label>
+                        <input type="text" id="productDescription" placeholder="পণ্য বিবরণ..." />
+                    </div>
+                    <button type="submit" class="submit-btn">পণ্য যোগ করুন</button>
+                </form>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">সকল পণ্য</h2>
+                <table class="products-table">
+                    <thead>
+                        <tr>
+                            <th>পণ্য নাম</th>
+                            <th>মূল্য</th>
+                            <th>বিবরণ</th>
+                            <th>ক্রিয়া</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsBody">
+                        <tr class="no-data">
+                            <td colspan="4">কোনো পণ্য নেই</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ORDERS TAB -->
+        <div id="orders" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">সকল অর্ডার</h2>
+                <p style="color: var(--gold-light); margin-bottom: 20px;">আদেশ ব্যবস্থাপনা অংশ শীঘ্রই আসছে।</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize dashboard
+        function initDashboard() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser || currentUser.type !== 'admin') {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            loadPendingApprovals();
+            loadProducts();
+        }
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function loadPendingApprovals() {
+            const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+            const pendingCustomers = customers.filter(c => c.approved === false);
+
+            const approvalsBody = document.getElementById('approvalsBody');
+
+            if (pendingCustomers.length === 0) {
+                approvalsBody.innerHTML = '<tr class="no-data"><td colspan="6">কোনো অনুমোদন অনুরোধ নেই</td></tr>';
+                return;
+            }
+
+            approvalsBody.innerHTML = pendingCustomers.map((customer, index) => `
+                <tr>
+                    <td>${customer.name}</td>
+                    <td>${customer.email}</td>
+                    <td>${customer.phone}</td>
+                    <td>${customer.location}</td>
+                    <td>${new Date(customer.joinDate).toLocaleDateString('bn-BD')}</td>
+                    <td>
+                        <button class="btn-approve" onclick="approveCustomer('${customer.email}')">অনুমোদন</button>
+                        <button class="btn-reject" onclick="rejectCustomer('${customer.email}')">প্রত্যাখ্যান</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function approveCustomer(email) {
+            const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+            const customer = customers.find(c => c.email === email);
+
+            if (customer) {
+                customer.approved = true;
+                localStorage.setItem('customers', JSON.stringify(customers));
+                alert(`${customer.name} অনুমোদিত হয়েছে এবং এখন লগইন করতে পারবেন।`);
+                loadPendingApprovals();
+            }
+        }
+
+        function rejectCustomer(email) {
+            if (confirm('এই গ্রাহককে প্রত্যাখ্যান করতে চান?')) {
+                const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+                const newCustomers = customers.filter(c => c.email !== email);
+                localStorage.setItem('customers', JSON.stringify(newCustomers));
+                alert('গ্রাহক প্রত্যাখ্যান করা হয়েছে।');
+                loadPendingApprovals();
+            }
+        }
+
+        function loadProducts() {
+            const products = JSON.parse(localStorage.getItem('products') || '[]');
+            const productsBody = document.getElementById('productsBody');
+
+            if (products.length === 0) {
+                productsBody.innerHTML = '<tr class="no-data"><td colspan="4">কোনো পণ্য নেই</td></tr>';
+                return;
+            }
+
+            productsBody.innerHTML = products.map((product, index) => `
+                <tr>
+                    <td>${product.name}</td>
+                    <td>৳${product.price.toLocaleString('bn-BD')}</td>
+                    <td>${product.description || '-'}</td>
+                    <td>
+                        <button class="btn-edit" onclick="editPrice('${index}')">মূল্য পরিবর্তন</button>
+                        <button class="btn-delete" onclick="deleteProduct('${index}')">মুছুন</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function addProduct(event) {
+            event.preventDefault();
+
+            const productName = document.getElementById('productName').value;
+            const productPrice = parseFloat(document.getElementById('productPrice').value);
+            const productDescription = document.getElementById('productDescription').value;
+
+            const products = JSON.parse(localStorage.getItem('products') || '[]');
+
+            const newProduct = {
+                name: productName,
+                price: productPrice,
+                description: productDescription,
+                addedDate: new Date().toISOString()
+            };
+
+            products.push(newProduct);
+            localStorage.setItem('products', JSON.stringify(products));
+
+            alert(`${productName} যোগ করা হয়েছে।`);
+            document.getElementById('productForm').reset();
+            loadProducts();
+        }
+
+        function editPrice(index) {
+            const products = JSON.parse(localStorage.getItem('products') || '[]');
+            const product = products[index];
+            const newPrice = prompt(`${product.name} এর নতুন মূল্য লিখুন (বর্তমান: ৳${product.price})`);
+
+            if (newPrice && !isNaN(newPrice)) {
+                product.price = parseFloat(newPrice);
+                localStorage.setItem('products', JSON.stringify(products));
+                alert('মূল্য আপডেট করা হয়েছে।');
+                loadProducts();
+            }
+        }
+
+        function deleteProduct(index) {
+            if (confirm('এই পণ্যটি মুছতে চান?')) {
+                const products = JSON.parse(localStorage.getItem('products') || '[]');
+                const productName = products[index].name;
+                products.splice(index, 1);
+                localStorage.setItem('products', JSON.stringify(products));
+                alert(`${productName} মুছা হয়েছে।`);
+                loadProducts();
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        }
+
+        // Initialize
+        window.addEventListener('load', initDashboard);
+    </script>
+</body>
+
+</html>
