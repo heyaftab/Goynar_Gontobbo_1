@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>গয়নার গন্তব্য — Goynar Gontobbo</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+Bengali:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --gold: #c8973a;
+            --gold-light: #e8c97a;
+            --gold-pale: #f5e6c8;
+            --deep: #1a0e05;
+            --warm-dark: #2c1a08;
+            --ink: #3d2a10;
+            --cream: #faf4e8;
+            --blush: #f0e0c4;
+            --ruby: #8b1a1a;
+            --emerald: #1a4a2e;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--deep);
+            color: var(--cream);
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+        }
+
+        /* ── GRAIN OVERLAY ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.5;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            background: linear-gradient(to bottom, rgba(26, 14, 5, 0.98), transparent);
+            border-bottom: 1px solid rgba(200, 151, 58, 0.15);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--gold);
+            letter-spacing: 0.08em;
+            text-decoration: none;
+        }
+
+        .nav-logo span {
+            display: block;
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: 0.75rem;
+            color: var(--gold-light);
+            letter-spacing: 0.15em;
+            font-weight: 300;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--blush);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 0.5rem 1.4rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: var(--gold);
+            color: var(--deep);
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 80% at 70% 50%, rgba(200, 151, 58, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 60% at 20% 30%, rgba(139, 26, 26, 0.06) 0%, transparent 60%),
+                linear-gradient(135deg, #1a0e05 0%, #2c1a08 50%, #1a0e05 100%);
+        }
+
+        .hero-ornament {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 55vw;
+            height: 100vh;
+            background: radial-gradient(ellipse at center, rgba(200, 151, 58, 0.06) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            position: relative;
+            padding: 8rem 3rem 4rem 5rem;
+            animation: fadeUp 1.2s ease forwards;
+        }
+
+        .hero-tag {
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hero-tag::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 5vw, 5.5rem);
+            line-height: 1.05;
+            color: var(--cream);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-title-bn {
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: clamp(2rem, 3.5vw, 3.8rem);
+            color: var(--gold);
+            display: block;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--blush);
+            max-width: 440px;
+            margin-bottom: 2.5rem;
+            font-style: italic;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--deep);
+            border: none;
+            padding: 0.9rem 2.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(200, 151, 58, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--cream);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.9rem 2.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Hero visual side */
+        .hero-visual {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 1.5s ease forwards;
+        }
+
+        .hero-circle {
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            border: 1px solid rgba(200, 151, 58, 0.25);
+            position: absolute;
+            animation: rotateSlow 20s linear infinite;
+        }
+
+        .hero-circle::before {
+            content: '';
+            position: absolute;
+            inset: 20px;
+            border-radius: 50%;
+            border: 1px solid rgba(200, 151, 58, 0.15);
+        }
+
+        .hero-circle::after {
+            content: '';
+            position: absolute;
+            inset: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(200, 151, 58, 0.08);
+        }
+
+        .hero-jewel-card {
+            background: linear-gradient(145deg, rgba(44, 26, 8, 0.9), rgba(26, 14, 5, 0.95));
+            border: 1px solid rgba(200, 151, 58, 0.3);
+            border-radius: 4px;
+            width: 280px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        .jewel-emoji {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 1rem;
+            animation: floatGem 3s ease-in-out infinite;
+        }
+
+        .jewel-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 0.4rem;
+        }
+
+        .jewel-name-bn {
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: 0.9rem;
+            color: var(--blush);
+            margin-bottom: 1.2rem;
+        }
+
+        .jewel-price {
+            font-size: 1.5rem;
+            color: var(--cream);
+            font-weight: 600;
+        }
+
+        .jewel-price span {
+            font-size: 0.8rem;
+            color: var(--gold);
+            display: block;
+            letter-spacing: 0.1em;
+        }
+
+        /* floating badge */
+        .badge-float {
+            position: absolute;
+            background: var(--ruby);
+            color: var(--cream);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.8rem;
+            top: -12px;
+            right: 20px;
+        }
+
+        /* ── MARQUEE ── */
+        .marquee-bar {
+            background: var(--gold);
+            padding: 0.7rem 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-track {
+            display: inline-block;
+            animation: marquee 25s linear infinite;
+        }
+
+        .marquee-track span {
+            color: var(--deep);
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            padding: 0 2rem;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .marquee-track span::before {
+            content: '✦';
+            margin-right: 2rem;
+            color: rgba(26, 14, 5, 0.5);
+        }
+
+        /* ── SECTION COMMONS ── */
+        section {
+            padding: 6rem 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-eyebrow {
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.35em;
+            color: var(--gold);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 3.5vw, 3.5rem);
+            color: var(--cream);
+            line-height: 1.2;
+        }
+
+        .section-title em {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            max-width: 80px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold));
+        }
+
+        .divider::after {
+            background: linear-gradient(to left, transparent, var(--gold));
+        }
+
+        .divider-gem {
+            color: var(--gold);
+            font-size: 0.8rem;
+        }
+
+        /* ── CATEGORIES ── */
+        .categories {
+            background: linear-gradient(180deg, var(--deep) 0%, var(--warm-dark) 100%);
+        }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cat-card {
+            position: relative;
+            border: 1px solid rgba(200, 151, 58, 0.2);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .cat-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(200, 151, 58, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .cat-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+        }
+
+        .cat-card:hover::before {
+            opacity: 1;
+        }
+
+        .cat-icon {
+            font-size: 2.8rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .cat-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--cream);
+            margin-bottom: 0.3rem;
+        }
+
+        .cat-name-bn {
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: 0.8rem;
+            color: var(--gold);
+        }
+
+        /* ── PRODUCTS ── */
+        .products {
+            background: var(--warm-dark);
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid rgba(200, 151, 58, 0.3);
+            color: var(--blush);
+            padding: 0.5rem 1.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--gold);
+            color: var(--deep);
+            border-color: var(--gold);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: rgba(26, 14, 5, 0.7);
+            border: 1px solid rgba(200, 151, 58, 0.15);
+            overflow: hidden;
+            transition: all 0.4s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            border-color: rgba(200, 151, 58, 0.5);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .product-img {
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            background: linear-gradient(135deg, rgba(44, 26, 8, 0.8), rgba(26, 14, 5, 0.9));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(200, 151, 58, 0.05) 0%, transparent 70%);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--ruby);
+            color: var(--cream);
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.6rem;
+        }
+
+        .product-wish {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(26, 14, 5, 0.8);
+            border: 1px solid rgba(200, 151, 58, 0.3);
+            color: var(--gold);
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .product-wish:hover {
+            background: var(--gold);
+            color: var(--deep);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-cat {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--cream);
+            margin-bottom: 0.3rem;
+        }
+
+        .product-name-bn {
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: 0.8rem;
+            color: var(--blush);
+            margin-bottom: 1rem;
+        }
+
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .product-price small {
+            font-size: 0.75rem;
+            color: rgba(200, 151, 58, 0.6);
+            text-decoration: line-through;
+            display: block;
+            font-weight: 300;
+        }
+
+        .add-cart {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 0.5rem 1rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-cart:hover {
+            background: var(--gold);
+            color: var(--deep);
+        }
+
+        /* ── BANNER ── */
+        .banner {
+            background:
+                linear-gradient(135deg, rgba(139, 26, 26, 0.15) 0%, rgba(26, 74, 46, 0.1) 100%),
+                var(--deep);
+            border-top: 1px solid rgba(200, 151, 58, 0.2);
+            border-bottom: 1px solid rgba(200, 151, 58, 0.2);
+            padding: 5rem 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner::before {
+            content: '✦';
+            position: absolute;
+            font-size: 20rem;
+            color: rgba(200, 151, 58, 0.03);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            user-select: none;
+        }
+
+        .banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 4.5rem);
+            color: var(--cream);
+            margin-bottom: 1rem;
+        }
+
+        .banner h2 em {
+            color: var(--gold);
+        }
+
+        .banner p {
+            font-size: 1.1rem;
+            color: var(--blush);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        /* ── TESTIMONIALS ── */
+        .testimonials {
+            background: var(--deep);
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .test-card {
+            border: 1px solid rgba(200, 151, 58, 0.15);
+            padding: 2.5rem;
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            transition: border-color 0.3s;
+        }
+
+        .test-card:hover {
+            border-color: rgba(200, 151, 58, 0.4);
+        }
+
+        .test-quote {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            font-size: 4rem;
+            color: var(--gold);
+            opacity: 0.2;
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+        }
+
+        .test-stars {
+            color: var(--gold);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .test-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--blush);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .test-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .test-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--ruby));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .test-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--cream);
+        }
+
+        .test-location {
+            font-size: 0.75rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+        }
+
+        /* ── CONTACT ── */
+        .contact {
+            background: var(--warm-dark);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .contact-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 3vw, 3rem);
+            color: var(--cream);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info p {
+            color: var(--blush);
+            line-height: 1.9;
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-details {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-details li {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .contact-icon {
+            color: var(--gold);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .contact-text {
+            color: var(--blush);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            background: rgba(26, 14, 5, 0.8);
+            border: 1px solid rgba(200, 151, 58, 0.25);
+            color: var(--cream);
+            padding: 0.9rem 1.2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+            resize: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--gold);
+        }
+
+        .form-group select option {
+            background: var(--deep);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--deep);
+            border-top: 1px solid rgba(200, 151, 58, 0.2);
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--gold);
+            margin-bottom: 0.3rem;
+        }
+
+        .footer-brand h3 span {
+            display: block;
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: 1rem;
+            color: var(--blush);
+            font-weight: 300;
+        }
+
+        .footer-brand p {
+            color: var(--blush);
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin-top: 1rem;
+            max-width: 300px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            width: 38px;
+            height: 38px;
+            border: 1px solid rgba(200, 151, 58, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: var(--gold);
+            color: var(--deep);
+        }
+
+        .footer-col h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--cream);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.7rem;
+            border-bottom: 1px solid rgba(200, 151, 58, 0.2);
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .footer-col a {
+            color: var(--blush);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+            letter-spacing: 0.03em;
+        }
+
+        .footer-col a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(200, 151, 58, 0.1);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: rgba(200, 151, 58, 0.5);
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* ── MODAL ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal {
+            background: var(--warm-dark);
+            border: 1px solid rgba(200, 151, 58, 0.3);
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.open .modal {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--cream);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal p {
+            color: var(--blush);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .modal-form input {
+            background: rgba(26, 14, 5, 0.9);
+            border: 1px solid rgba(200, 151, 58, 0.25);
+            color: var(--cream);
+            padding: 0.9rem 1.2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            outline: none;
+            width: 100%;
+            transition: border-color 0.3s;
+        }
+
+        .modal-form input:focus {
+            border-color: var(--gold);
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes rotateSlow {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes floatGem {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ── SCROLL ANIMATIONS ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── MOBILE ── */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content {
+                padding: 7rem 1.5rem 3rem;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .contact {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+
+            section {
+                padding: 4rem 5%;
+            }
+        }
+
+        /* ── TOAST ── */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--gold);
+            color: var(--deep);
+            padding: 1rem 2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            z-index: 300;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a href="#" class="nav-logo">
+            Goynar Gontobbo
+            <span>গয়নার গন্তব্য</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#categories">Collections</a></li>
+            <li><a href="#products">Shop</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="nav-btn" onclick="openModal()">Order Now</button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-ornament"></div>
+
+        <div class="hero-content">
+            <div class="hero-tag">New Collection 2025 · গয়নার গন্তব্য</div>
+            <h1 class="hero-title">
+                Where Beauty
+                <span class="hero-title-bn">মিলে যায় ঐতিহ্যের সাথে</span>
+            </h1>
+            <p class="hero-desc">Handcrafted jewelry celebrating Bengali heritage — from timeless gold sets to
+                contemporary statement pieces, every ornament tells a story.</p>
+            <div class="hero-actions">
+                <button class="btn-primary"
+                    onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Explore
+                    Collection</button>
+                <button class="btn-outline" onclick="openModal()">Book Consultation</button>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="hero-circle"></div>
+            <div class="hero-jewel-card">
+                <div class="badge-float">Featured</div>
+                <span class="jewel-emoji">💎</span>
+                <div class="jewel-name">Bridal Necklace Set</div>
+                <div class="jewel-name-bn">বিবাহের গলার হার সেট</div>
+                <div class="jewel-price">
+                    <span>Starting from</span>
+                    ৳ 12,500
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-bar">
+        <div class="marquee-track">
+            <span>Free Delivery in Dhaka</span>
+            <span>100% Authentic Gold & Silver</span>
+            <span>Custom Orders Welcome</span>
+            <span>Bridal Sets Available</span>
+            <span>Cash on Delivery</span>
+            <span>Lifetime Quality Guarantee</span>
+            <span>Free Delivery in Dhaka</span>
+            <span>100% Authentic Gold & Silver</span>
+            <span>Custom Orders Welcome</span>
+            <span>Bridal Sets Available</span>
+            <span>Cash on Delivery</span>
+            <span>Lifetime Quality Guarantee</span>
+        </div>
+    </div>
+
+    <!-- CATEGORIES -->
+    <section class="categories" id="categories">
+        <div class="section-header reveal">
+            <span class="section-eyebrow">Browse by Category · বিভাগ অনুযায়ী</span>
+            <h2 class="section-title">Our <em>Collections</em></h2>
+            <div class="divider"><span class="divider-gem">✦</span></div>
+        </div>
+
+        <div class="cat-grid">
+            <div class="cat-card reveal" onclick="filterProducts('Necklace')">
+                <span class="cat-icon">📿</span>
+                <div class="cat-name">Necklaces</div>
+                <div class="cat-name-bn">গলার হার</div>
+            </div>
+            <div class="cat-card reveal" onclick="filterProducts('Earring')">
+                <span class="cat-icon">💫</span>
+                <div class="cat-name">Earrings</div>
+                <div class="cat-name-bn">কানের দুল</div>
+            </div>
+            <div class="cat-card reveal" onclick="filterProducts('Bangle')">
+                <span class="cat-icon">⭕</span>
+                <div class="cat-name">Bangles</div>
+                <div class="cat-name-bn">চুড়ি</div>
+            </div>
+            <div class="cat-card reveal" onclick="filterProducts('Ring')">
+                <span class="cat-icon">💍</span>
+                <div class="cat-name">Rings</div>
+                <div class="cat-name-bn">আংটি</div>
+            </div>
+            <div class="cat-card reveal" onclick="filterProducts('Bridal')">
+                <span class="cat-icon">👑</span>
+                <div class="cat-name">Bridal Sets</div>
+                <div class="cat-name-bn">বিবাহের সেট</div>
+            </div>
+            <div class="cat-card reveal" onclick="filterProducts('all')">
+                <span class="cat-icon">✨</span>
+                <div class="cat-name">View All</div>
+                <div class="cat-name-bn">সব দেখুন</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="products" id="products">
+        <div class="section-header reveal">
+            <span class="section-eyebrow">Handpicked for You · বিশেষভাবে নির্বাচিত</span>
+            <h2 class="section-title">Featured <em>Pieces</em></h2>
+            <div class="divider"><span class="divider-gem">✦</span></div>
+        </div>
+
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterProducts('all', this)">All</button>
+            <button class="filter-btn" onclick="filterProducts('Necklace', this)">Necklaces</button>
+            <button class="filter-btn" onclick="filterProducts('Earring', this)">Earrings</button>
+            <button class="filter-btn" onclick="filterProducts('Bangle', this)">Bangles</button>
+            <button class="filter-btn" onclick="filterProducts('Ring', this)">Rings</button>
+            <button class="filter-btn" onclick="filterProducts('Bridal', this)">Bridal</button>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+            <!-- JS fills this -->
+        </div>
+    </section>
+
+    <!-- BANNER -->
+    <div class="banner" id="about">
+        <h2 class="reveal">Jewelry That Speaks of <em>Legacy</em></h2>
+        <p class="reveal">গয়নার গন্তব্য is more than a shop — it is a celebration of Bengali artisanship, where every
+            piece carries the warmth of tradition and the brilliance of modern design.</p>
+        <button class="btn-primary reveal" onclick="openModal()">Start Your Journey ✦</button>
+    </div>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+        <div class="section-header reveal">
+            <span class="section-eyebrow">Happy Customers · সন্তুষ্ট ক্রেতা</span>
+            <h2 class="section-title">Words of <em>Love</em></h2>
+            <div class="divider"><span class="divider-gem">✦</span></div>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card reveal">
+                <div class="test-quote">"</div>
+                <div class="test-stars">★★★★★</div>
+                <p class="test-text">The bridal set I ordered was absolutely breathtaking. The craftsmanship is
+                    extraordinary and delivery was right on time for my wedding day!</p>
+                <div class="test-author">
+                    <div class="test-avatar">🌸</div>
+                    <div>
+                        <div class="test-name">Sadia Islam</div>
+                        <div class="test-location">Dhaka, Bangladesh</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-card reveal">
+                <div class="test-quote">"</div>
+                <div class="test-stars">★★★★★</div>
+                <p class="test-text">গয়নার গন্তব্য is my go-to for every occasion. The gold earrings I bought for Eid
+                    were so elegant — everyone kept asking where I got them!</p>
+                <div class="test-author">
+                    <div class="test-avatar">🌺</div>
+                    <div>
+                        <div class="test-name">Nusrat Jahan</div>
+                        <div class="test-location">Chittagong, Bangladesh</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-card reveal">
+                <div class="test-quote">"</div>
+                <div class="test-stars">★★★★★</div>
+                <p class="test-text">Ordered a custom ring for my wife's anniversary gift. They did an amazing job
+                    matching exactly what I described. Truly one of a kind!</p>
+                <div class="test-author">
+                    <div class="test-avatar">🌹</div>
+                    <div>
+                        <div class="test-name">Rakib Hossain</div>
+                        <div class="test-location">Sylhet, Bangladesh</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <div class="contact-info reveal">
+            <span class="section-eyebrow">Get in Touch · যোগাযোগ করুন</span>
+            <h2>Visit Our <em style="color:var(--gold);font-style:italic">Store</em></h2>
+            <p>We welcome you to explore our full collection in person, or reach out for custom orders, bridal
+                consultations, and more.</p>
+            <ul class="contact-details">
+                <li>
+                    <span class="contact-icon">📍</span>
+                    <span class="contact-text">Dhaka, Bangladesh<br><small>Exact location shared upon order
+                            confirmation</small></span>
+                </li>
+                <li>
+                    <span class="contact-icon">📱</span>
+                    <span class="contact-text">+880 1XXX-XXXXXX<br><small>WhatsApp & Call Available</small></span>
+                </li>
+                <li>
+                    <span class="contact-icon">🕐</span>
+                    <span class="contact-text">Saturday – Thursday: 10 AM – 9 PM<br>Friday: 2 PM – 9 PM</span>
+                </li>
+                <li>
+                    <span class="contact-icon">📦</span>
+                    <span class="contact-text">Home delivery across Bangladesh<br><small>Cash on Delivery
+                            available</small></span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="contact-form reveal">
+            <div class="form-group">
+                <label>Your Name · আপনার নাম</label>
+                <input type="text" placeholder="Enter your full name" />
+            </div>
+            <div class="form-group">
+                <label>Phone · ফোন নম্বর</label>
+                <input type="tel" placeholder="+880 1XXX-XXXXXX" />
+            </div>
+            <div class="form-group">
+                <label>Interested In · আগ্রহী</label>
+                <select>
+                    <option>Select a category</option>
+                    <option>Necklaces · গলার হার</option>
+                    <option>Earrings · কানের দুল</option>
+                    <option>Bangles · চুড়ি</option>
+                    <option>Rings · আংটি</option>
+                    <option>Bridal Set · বিবাহের সেট</option>
+                    <option>Custom Order · কাস্টম অর্ডার</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Message · বার্তা</label>
+                <textarea rows="4" placeholder="Tell us what you're looking for..."></textarea>
+            </div>
+            <button class="btn-primary" onclick="sendMessage()">Send Message ✦</button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>Goynar Gontobbo <span>গয়নার গন্তব্য</span></h3>
+                <p>Your destination for authentic, handcrafted Bengali jewelry. From heirloom pieces to contemporary
+                    designs, we celebrate the art of adornment.</p>
+                <div class="social-links">
+                    <a class="social-link" href="#" title="Facebook">f</a>
+                    <a class="social-link" href="#" title="Instagram">ig</a>
+                    <a class="social-link" href="#" title="WhatsApp">wa</a>
+                    <a class="social-link" href="#" title="YouTube">yt</a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Collections</h4>
+                <ul>
+                    <li><a href="#">Necklaces</a></li>
+                    <li><a href="#">Earrings</a></li>
+                    <li><a href="#">Bangles</a></li>
+                    <li><a href="#">Rings</a></li>
+                    <li><a href="#">Bridal Sets</a></li>
+                    <li><a href="#">Custom Orders</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Information</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Our Craft</a></li>
+                    <li><a href="#">Authenticity</a></li>
+                    <li><a href="#">Care Guide</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Help</h4>
+                <ul>
+                    <li><a href="#">How to Order</a></li>
+                    <li><a href="#">Delivery Info</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 Goynar Gontobbo · গয়নার গন্তব্য · All rights reserved</p>
+            <p>Made with ♥ for the love of Bengali jewelry</p>
+        </div>
+    </footer>
+
+    <!-- ORDER MODAL -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h2>Book a Consultation</h2>
+            <p>Fill in your details and we'll reach out within 24 hours to discuss your dream jewelry.</p>
+            <div class="modal-form">
+                <input type="text" placeholder="Your Name · আপনার নাম" />
+                <input type="tel" placeholder="Phone Number · ফোন নম্বর" />
+                <input type="text" placeholder="What are you looking for?" />
+                <button class="btn-primary" style="width:100%" onclick="submitModal()">Submit Request ✦</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ── PRODUCTS DATA ──
+        const products = [
+            { id: 1, name: 'Royal Gold Necklace', nameBn: 'রাজকীয় সোনার হার', cat: 'Necklace', icon: '📿', price: '৳ 18,500', oldPrice: '৳ 22,000', badge: 'Sale' },
+            { id: 2, name: 'Kundan Earring Set', nameBn: 'কুন্দন কানের দুল', cat: 'Earring', icon: '✨', price: '৳ 4,200', oldPrice: null, badge: 'New' },
+            { id: 3, name: 'Gold Bangle Pair', nameBn: 'সোনার চুড়ি জোড়া', cat: 'Bangle', icon: '⭕', price: '৳ 9,800', oldPrice: '৳ 11,500', badge: 'Sale' },
+            { id: 4, name: 'Diamond Ring', nameBn: 'হীরার আংটি', cat: 'Ring', icon: '💍', price: '৳ 25,000', oldPrice: null, badge: 'Luxury' },
+            { id: 5, name: 'Bridal Full Set', nameBn: 'বিবাহের সম্পূর্ণ সেট', cat: 'Bridal', icon: '👑', price: '৳ 55,000', oldPrice: '৳ 68,000', badge: 'Sale' },
+            { id: 6, name: 'Pearl Necklace', nameBn: 'মুক্তার মালা', cat: 'Necklace', icon: '🌙', price: '৳ 7,500', oldPrice: null, badge: 'Trending' },
+            { id: 7, name: 'Jhumka Earrings', nameBn: 'ঝুমকা কানের দুল', cat: 'Earring', icon: '🎐', price: '৳ 3,200', oldPrice: null, badge: 'New' },
+            { id: 8, name: 'Stone Bangle Set', nameBn: 'পাথরের চুড়ি সেট', cat: 'Bangle', icon: '🪨', price: '৳ 6,500', oldPrice: '৳ 7,800', badge: 'Sale' },
+        ];
+
+        let currentFilter = 'all';
+        const wishlist = new Set();
+
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('productsGrid');
+            const filtered = filter === 'all' ? products : products.filter(p => p.cat === filter);
+
+            grid.innerHTML = filtered.map(p => `
+      <div class="product-card reveal" data-id="${p.id}">
+        <div class="product-img">
+          <span>${p.icon}</span>
+          <div class="product-badge">${p.badge}</div>
+          <button class="product-wish" onclick="toggleWish(${p.id}, this)" title="Wishlist">
+            ${wishlist.has(p.id) ? '♥' : '♡'}
+          </button>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">${p.cat}</div>
+          <div class="product-name">${p.name}</div>
+          <div class="product-name-bn">${p.nameBn}</div>
+          <div class="product-footer">
+            <div class="product-price">
+              ${p.oldPrice ? `<small>${p.oldPrice}</small>` : ''}
+              ${p.price}
+            </div>
+            <button class="add-cart" onclick="addToCart('${p.name}')">Add ✦</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+            // trigger reveal for new cards
+            setTimeout(() => {
+                document.querySelectorAll('#productsGrid .reveal').forEach(el => el.classList.add('visible'));
+            }, 100);
+        }
+
+        function filterProducts(cat, btn) {
+            currentFilter = cat;
+
+            // update filter buttons
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            renderProducts(cat);
+
+            // scroll to products
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleWish(id, btn) {
+            if (wishlist.has(id)) {
+                wishlist.delete(id);
+                btn.textContent = '♡';
+                showToast('Removed from wishlist');
+            } else {
+                wishlist.add(id);
+                btn.textContent = '♥';
+                showToast('Added to wishlist ♥');
+            }
+        }
+
+        function addToCart(name) {
+            showToast(`"${name}" — added to cart ✦`);
+        }
+
+        // ── MODAL ──
+        function openModal() {
+            document.getElementById('modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('modal').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        function submitModal() {
+            closeModal();
+            showToast('Thank you! We\'ll contact you soon ✦');
+        }
+
+        function sendMessage() {
+            showToast('Message sent! We\'ll reply shortly ✦');
+        }
+
+        // ── TOAST ──
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        // ── SCROLL REVEAL ──
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        function observeReveal() {
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        // ── INIT ──
+        renderProducts();
+        observeReveal();
+    </script>
+</body>
+
+</html>
