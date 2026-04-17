@@ -120,11 +120,44 @@
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .nav-btn:hover {
             background: var(--gold);
             color: var(--deep);
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid var(--ruby);
+            color: var(--ruby);
+            padding: 0.5rem 1.4rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logout-btn:hover {
+            background: var(--ruby);
+            color: var(--cream);
+        }
+
+        .user-info {
+            color: var(--gold);
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .hidden {
+            display: none;
         }
 
         /* ── HERO ── */
@@ -1203,6 +1236,10 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-actions">
+            <a href="login.html" class="nav-btn" id="loginBtn">লগইন</a>
+            <a href="customer-dashboard.html" class="nav-btn hidden" id="accountBtn">অ্যাকাউন্ট হিস্ট্রি</a>
+            <span class="user-info hidden" id="userInfo"></span>
+            <button class="logout-btn hidden" id="logoutBtn" onclick="logout()">লগআউট</button>
             <button class="nav-btn" onclick="openModal()">Order Now</button>
         </div>
     </nav>
@@ -1642,9 +1679,44 @@
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         }
 
+        // ── AUTH CHECK ──
+        function checkLoginStatus() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const loginBtn = document.getElementById('loginBtn');
+            const accountBtn = document.getElementById('accountBtn');
+            const userInfo = document.getElementById('userInfo');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            if (currentUser && currentUser.type === 'customer') {
+                // User is logged in
+                const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+                const customer = customers.find(c => c.email === currentUser.email);
+                const customerName = customer ? customer.name : 'গ্রাহক';
+
+                loginBtn.classList.add('hidden');
+                accountBtn.classList.remove('hidden');
+                userInfo.classList.remove('hidden');
+                logoutBtn.classList.remove('hidden');
+
+                userInfo.textContent = customerName;
+            } else {
+                // User is not logged in
+                loginBtn.classList.remove('hidden');
+                accountBtn.classList.add('hidden');
+                userInfo.classList.add('hidden');
+                logoutBtn.classList.add('hidden');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+
         // ── INIT ──
         renderProducts();
         observeReveal();
+        checkLoginStatus();
     </script>
 </body>
 
